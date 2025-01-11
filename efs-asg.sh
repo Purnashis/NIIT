@@ -50,7 +50,7 @@ sudo mount -a
 
 # set permissions
 sudo chown apache:apache -R /var/www/html
-sudo chmod 755 -R /var/www/html
+sudo chmod 777 -R /var/www/html
 
 # restart the webserver
 sudo systemctl restart httpd
