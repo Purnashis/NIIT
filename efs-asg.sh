@@ -55,3 +55,9 @@ sudo chmod 755 -R /var/www/html
 # restart the webserver
 sudo systemctl restart httpd
 sudo systemctl restart php-fpm
+
+# install code deploy agent
+sudo yum install ruby -y
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
