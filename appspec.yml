@@ -1,0 +1,7 @@
+version: 4.2
+os: linux
+files:
+  - source: /elevate
+    destination: /var/www/html
+    overwrite: true
+file_exists_behavior: OVERWRITE
