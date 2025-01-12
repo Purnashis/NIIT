@@ -34,12 +34,21 @@ php-tokenizer
 sudo yum install nfs-utils -y
 sudo yum install cifs-utils -y
 
+
+# nessary mounting efs utility
+sudo yum -y install git rpm-build make rust cargo openssl-devel
+git clone https://github.com/aws/efs-utils
+cd efs-utils
+make rpm
+sudo yum -y install build/amazon-efs-utils*rpm
+
 # environment variable
 EFS_DNS_NAME=xxxxxx
-EFS_FOLDER_NAME=
+EPS_ACCESS_POINT=xxxx
 
 # mount the efs to the html directory 
-echo "$EFS_DNS_NAME:/$EFS_FOLDER_NAME /var/www/html nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0" | sudo tee -a /etc/fstab
+# echo "$EFS_DNS_NAME:/ /var/www/html nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0" | sudo tee -a /etc/fstab
+echo "$EFS_DNS_NAME /var/www/html efs _netdev,tls,accesspoint=$EFS_ACCESS_POINT 0 0" | sudo tee -a /etc/fstab
 sudo mount -a
 
 # set permissions
