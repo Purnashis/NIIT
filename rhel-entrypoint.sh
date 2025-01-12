@@ -44,7 +44,7 @@ sudo yum -y install build/amazon-efs-utils*rpm
 
 # environment variable
 EFS_DNS_NAME=xxxxxx
-EPS_ACCESS_POINT=xxxx
+EFS_ACCESS_POINT=xxxx
 
 # mount the efs to the html directory 
 # echo "$EFS_DNS_NAME:/ /var/www/html nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0" | sudo tee -a /etc/fstab
@@ -53,7 +53,7 @@ sudo mount -a
 
 # set permissions
 sudo chown nginx:nginx -R /usr/share/nginx/html
-sudo chmod 777 -R /usr/share/nginx/html
+sudo chmod 755 -R /usr/share/nginx/html
 
 # restart the webserver
 sudo systemctl restart nginx
