@@ -30,11 +30,16 @@ php-openssl \
 php-pdo \
 php-tokenizer
 
+# nessary mounting utilities
+sudo yum install nfs-utils -y
+sudo yum install cifs-utils -y
+
 # environment variable
 EFS_DNS_NAME=xxxxxx
+EFS_FOLDER_NAME=
 
 # mount the efs to the html directory 
-echo "$EFS_DNS_NAME:/elevate-qa /var/www/html nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0" | sudo tee -a /etc/fstab
+echo "$EFS_DNS_NAME:/$EFS_FOLDER_NAME /var/www/html nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0" | sudo tee -a /etc/fstab
 sudo mount -a
 
 # set permissions
