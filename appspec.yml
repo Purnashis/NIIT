@@ -2,6 +2,6 @@ version: 1.0
 os: linux
 files:
   - source: /elevate
-    destination: /var/www/html
+    destination: /usr/share/nginx/html/elevate-uat.niit.com
     overwrite: true
 file_exists_behavior: OVERWRITE
