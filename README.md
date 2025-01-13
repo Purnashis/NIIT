@@ -13,8 +13,9 @@ For scalable file storage, **Amazon Elastic File System (EFS)** will serve WordP
 #!/bin/bash
 # Mount EFS to /var/www/html
 EFS_DNS_NAME=xxxxxxx
-EFS_FOLDER_NAME=
+EFS_ACCESS_POINT=xxxx
+ENVIRONMENT_NAME=
 sudo mkdir -p /var/www/html
-sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport "$EFS_DNS_NAME":/$EFS_FOLDER_NAME /var/www/html
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport "$EFS_DNS_NAME":/$ENVIRONMENT_NAME /var/www/html
 ```
 This ensures our `/var/www/html` directory (where WordPress lives) is backed by **EFS**, providing persistent storage that scales independently of the instances.
