@@ -55,6 +55,7 @@ sudo mount -a
 # set permissions
 sudo chown nginx:nginx -R /usr/share/nginx/html/$ENVIRONMENT_NAME
 sudo chmod 755 -R /usr/share/nginx/html/$ENVIRONMENT_NAME
+# chcon -R -t httpd_sys_rw_content_t /elevate/
 
 # restart the webserver
 sudo systemctl restart nginx
@@ -63,6 +64,22 @@ sudo systemctl restart php-fpm
 # install of code deploy agent
 sudo yum install ruby -y
 sudo yum install wget -y
+mkdir ~/codedeploy_agent
+cd ~/codedeploy_agent
 wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
 chmod +x ./install
 sudo ./install auto
+
+# install of cloud watch agent
+mkdir ~/cloudwatch_agent
+cd ~/cloudwatch_agent
+wget https://amazoncloudwatch-agent.s3.amazonaws.com/redhat/amd64/latest/amazon-cloudwatch-agent.rpm
+sudo rpm -U ./amazon-cloudwatch-agent.rpm
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+sudo mkdir -p /usr/share/collectd/
+sudo touch /usr/share/collectd/types.db
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+
+# install of ssm agent
+sudo dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+# sudo systemctl status amazon-ssm-agent
